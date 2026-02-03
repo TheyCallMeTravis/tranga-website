@@ -61,9 +61,6 @@
                 </template>
                 <template #default>
                     <div class="flex flex-row gap-2 w-full items-center">
-                        <UTooltip :text="chapter.isOfficial === true ? 'Official' : (chapter.isOfficial === false ? 'Not Official' : 'Unknown')">
-                            <UIcon :name="chapter.isOfficial === true ? 'i-lucide-check-circle' : (chapter.isOfficial === false ? 'i-lucide-x-circle' : 'i-lucide-question-circle')" size="20" />
-                        </UTooltip>
                         <UTooltip :text="chapter.downloaded ? 'Downloaded' : 'Not downloaded'">
                             <UIcon :name="chapter.downloaded ? 'i-lucide-cloud-check' : 'i-lucide-cloud-alert'" size="20" />
                         </UTooltip>
@@ -87,6 +84,9 @@
                                     " />
                             </UTooltip>
                         </div>
+                        <UTooltip :text="getOfficialStatus(chapter.isOfficial)">
+                            <UIcon :name="getOfficialIcon(chapter.isOfficial)" size="20" />
+                        </UTooltip>
                         <!-- TODO: Not implemented yet -->
                         <UButton variant="outline" color="secondary" class="ml-auto" disabled>Force (re)download</UButton>
                     </div>
@@ -128,5 +128,25 @@ const setDownload = async (chapterId: string, mangaConnector: string, requested:
         path: { ChapterId: chapterId, MangaConnectorName: mangaConnector, IsRequested: requested },
     });
     await refresh();
+};
+// Helper function to return the correct status text
+const getOfficialStatus = (isOfficial: boolean | null | undefined): string => {
+    if (isOfficial === true) {
+        return 'Official';
+    } else if (isOfficial === false) {
+        return 'Not Official';
+    } else {
+        return 'Unknown';
+    }
+};
+// Helper function to return the correct icon based on official status
+const getOfficialIcon = (isOfficial: boolean | null | undefined): string => {
+    if (isOfficial === true) {
+        return 'i-lucide-check-circle'; // Official
+    } else if (isOfficial === false) {
+        return 'i-lucide-x-circle'; // Not Official
+    } else {
+        return 'i-lucide-question-circle'; // Unknown
+    }
 };
 </script>
