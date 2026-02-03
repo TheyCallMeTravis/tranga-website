@@ -62,7 +62,7 @@
                 <template #default>
                     <div class="flex flex-row gap-2 w-full items-center">
                         <UTooltip :text="chapter.isOfficial === true ? 'Official' : (chapter.isOfficial === false ? 'Not Official' : 'Unknown')">
-                            <UIcon :name="chapter.isOfficial === true ? 'i-lucide-check-circle' : (chapter.isOfficial === false ? 'i-lucide-x-circle' : 'i-lucide-question-circle')" size="20" class="text-green-500" />
+                            <UIcon :name="chapter.isOfficial === true ? 'i-lucide-check-circle' : (chapter.isOfficial === false ? 'i-lucide-x-circle' : 'i-lucide-question-circle')" size="20" />
                         </UTooltip>
                         <UTooltip :text="chapter.downloaded ? 'Downloaded' : 'Not downloaded'">
                             <UIcon :name="chapter.downloaded ? 'i-lucide-cloud-check' : 'i-lucide-cloud-alert'" size="20" />
