@@ -84,6 +84,9 @@
                                     " />
                             </UTooltip>
                         </div>
+                        <UTooltip :text="getOfficialStatus(chapter.isOfficial)">
+                            <UIcon :name="getOfficialIcon(chapter.isOfficial)" size="20" />
+                        </UTooltip>
                         <!-- TODO: Not implemented yet -->
                         <UButton variant="outline" color="secondary" class="ml-auto" disabled>Force (re)download</UButton>
                     </div>
@@ -125,5 +128,25 @@ const setDownload = async (chapterId: string, mangaConnector: string, requested:
         path: { ChapterId: chapterId, MangaConnectorName: mangaConnector, IsRequested: requested },
     });
     await refresh();
+};
+// Helper function to return the correct status text
+const getOfficialStatus = (isOfficial: boolean | null | undefined): string => {
+    if (isOfficial === true) {
+        return 'Official';
+    } else if (isOfficial === false) {
+        return 'Not Official';
+    } else {
+        return 'Unknown';
+    }
+};
+// Helper function to return the correct icon based on official status
+const getOfficialIcon = (isOfficial: boolean | null | undefined): string => {
+    if (isOfficial === true) {
+        return 'i-lucide-check-circle'; // Official
+    } else if (isOfficial === false) {
+        return 'i-lucide-x-circle'; // Not Official
+    } else {
+        return 'i-lucide-question-circle'; // Unknown
+    }
 };
 </script>
